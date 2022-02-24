@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs';
+import { map, take } from 'rxjs';
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
 
@@ -9,7 +9,7 @@ import { HeroService } from '../hero.service';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  heroes: Hero[] = [];
+  private heroes: Hero[] = [];
 
   constructor(private heroService: HeroService) {}
 
@@ -20,7 +20,10 @@ export class DashboardComponent implements OnInit {
   getHeroes(): void {
     this.heroService
       .getHeroes()
-      .pipe(map((heroes) => this.filterHeroByE(heroes)))
+      .pipe(
+        map((heroes) => this.filterHeroByE(heroes)),
+        take(1)
+      )
       .subscribe((heroes) => (this.heroes = heroes.slice(1, 5)));
   }
 
