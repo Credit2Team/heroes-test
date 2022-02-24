@@ -9,7 +9,7 @@ import { HeroService } from '../hero.service';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  private heroes: Hero[] = [];
+  heroes: Hero[] = [];
 
   constructor(private heroService: HeroService) {}
 
@@ -21,13 +21,13 @@ export class DashboardComponent implements OnInit {
     this.heroService
       .getHeroes()
       .pipe(
-        map((heroes) => this.filterHeroByE(heroes)),
+        map((heroes) => this.filterHeroBy(heroes, 'e')),
         take(1)
       )
       .subscribe((heroes) => (this.heroes = heroes.slice(1, 5)));
   }
 
-  private filterHeroByE(heros: Hero[]): Hero[] {
-    return heros.filter((hero) => hero.name.toLowerCase().includes('e'));
+  private filterHeroBy(heros: Hero[], filterTerm: string): Hero[] {
+    return heros.filter((hero) => hero.name.toLowerCase().includes(filterTerm));
   }
 }
