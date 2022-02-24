@@ -27,6 +27,7 @@ export class HeroSearchComponent implements OnInit {
   ngOnInit(): void {
     this.heroes$ = this.searchTerms.pipe(
       delay(2000),
+      distinctUntilChanged(),
       // switch to new search observable each time the term changes
       switchMap((term: string) => this.heroService.searchHeroes(term))
     );
