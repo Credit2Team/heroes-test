@@ -1,7 +1,9 @@
 <div *ngIf="hero">
-  <h2>{{hero.name}} Details</h2>
-  <div>Id: {{hero.id}}</div>
-
+  <h2>
+    <span class="uppercase">{{ hero.name }}</span> Details
+  </h2>
+  <div>Id: {{ hero.id }}</div>
+  <div>Power level: {{ hero.power }}</div>
   <button type="button" (click)="goBack()">go back</button>
   <button type="button" (click)="save()">save</button>
 </div>
